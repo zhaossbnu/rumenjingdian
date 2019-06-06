@@ -47,6 +47,8 @@ void update(int cur)
         r = min(r, g[cur].y - sqrt(g[cur].r * g[cur].r - (1000 - g[cur].x) * (1000 -g[cur].x)));
 }
 
+// 如果从上向下有通路  说明左右没有通路
+// 否则 左右有通路
 bool dfs(int cur)
 {
     if (vis[cur]) return false;
@@ -57,6 +59,7 @@ bool dfs(int cur)
         if (i != cur && !vis[i] && intersection(cur, i))
             return dfs(i);
     }
+    // 对于那些失败的圈  才有可能会影响到出发点和离开点
     update(cur);
     return false;
 }
